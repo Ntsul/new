@@ -1,0 +1,4 @@
+This is the content of source1.txt
+
+---
+This is the content of source2.txt
