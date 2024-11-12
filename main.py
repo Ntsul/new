@@ -1,51 +1,47 @@
 
-###########
-#task1
-#########
-number = int(input('enter the number:'))
-print(number)
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
 
-while number > 0:
-
-    print(number)
-    number -= 1
-
-###############
-#task2
-########
+def printLeafNodes(node):
+    if node is None:
+        return
 
 
-# total_sum = 0
-#
-while True:
-    num = input('Enter a positive number or type "sum" to show the total: ')
-    if num == 'sum':
-        print(total_sum)
-        break
-    elif int(num) > 0:  #  positive integer
-        total_sum += int(num)
-    else:
-        print("Please enter a valid number.")
+    if node.left is None and node.right is None:
+        print(node.data)
 
-##################
-#######task3
-################
-#
-import random
-random_number = random.randint(0, 15)
-print(random_number)
-num_of_lives = 5
-# num2 = int(input('Enter the number: '))
-while num_of_lives > 0:
-    chance = int(input('Guess the number: '))
-    if random_number == chance:
-        print("Congrats, you have guessed the number")
 
-    if random_number < chance:
-        print('Entered number is greater')
-    elif random_number > chance:
-        print('entered number is less')
-    else:
-        break
-    num_of_lives -=1
+    if node.left:
+        printLeafNodes(node.left)
+    if node.right:
+        printLeafNodes(node.right)
 
+
+
+def countEdges(node):
+    if node is None:
+        return 0
+
+
+    left_edges = countEdges(node.left)
+    right_edges = countEdges(node.right)
+
+    return 1 + left_edges + right_edges
+
+root = Node(1)
+root.left = Node(2)
+root.right = Node(3)
+root.left.left = Node(4)
+root.left.right = Node(5)
+root.right.right = Node(6)
+
+
+print("Leaf nodes are:")
+printLeafNodes(root)
+
+
+edges = countEdges(root)
+print(f"Total number of edges: {edges}")
